@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import fn from './utils/functions'
 
 
 class App extends Component {
@@ -21,19 +22,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/cars').then( data => {
+      fn.getCars('./api/cars').then( data => {
       this.setState({
-        cars: data.data
+        cars: data
       })
     })
   }
 
   filterCarsById() {
-    console.log('running')
-    const car = this.state.cars.filter( car => {
-      return car.id === Number(this.input.value)
-    })
-    console.log(car)
+
+    const car = fn.getCarsById(this.input.value, this.state.cars)
+
     this.setState({
       carById: car
     })
@@ -50,7 +49,7 @@ class App extends Component {
 
   randomNum() {
     this.setState({
-      randomNum: Math.floor(Math.random() * 10) + 1
+      randomNum: fn.getRandomNumber
     })
   }
   
